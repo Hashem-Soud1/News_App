@@ -9,20 +9,18 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
   final homeService = HomeServicesImpl();
-
   void getTopHeadlines() async {
     emit(TopHeadlinesLoading());
+
     try {
       final response = TopHeadlinesBody(
         country: 'us',
         category: 'business',
-        sources: 'abc-news',
-        q: 'apple',
         pageSize: 7,
         page: 1,
       );
-
       final result = await homeService.getTopHeadlines(response);
+
       emit(TopHeadlinesLoaded(result.articles));
     } catch (e) {
       emit(TopHeadlinesError('Failed to load headlines'));
