@@ -26,13 +26,13 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
           );
           final publishedDate = DateFormat.yMMMd().format(parsedDate);
           return ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
             child: Stack(
               children: <Widget>[
                 CachedNetworkImage(
                   imageUrl:
                       item.urlToImage ??
-                      'https://plus.unsplash.com/premium_photo-1688561384438-bfa9273e2c00?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                      'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
                   fit: BoxFit.cover,
                   width: 1000.0,
                   height: 220,
@@ -94,9 +94,10 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
             items: imageSliders,
             carouselController: _controller,
             options: CarouselOptions(
+              viewportFraction: 0.84,
               autoPlay: true,
               enlargeCenterPage: true,
-              aspectRatio: 2.0,
+              aspectRatio: 2.1,
               onPageChanged: (index, reason) {
                 setState(() {
                   _current = index;
@@ -122,7 +123,7 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
                     decoration: BoxDecoration(
                       borderRadius:
                           _current == entry.key
-                              ? const BorderRadius.all(Radius.circular(4))
+                              ? const BorderRadius.all(Radius.circular(5))
                               : null,
                       shape:
                           _current == entry.key
