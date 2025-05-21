@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/core/views/widgets/app_bar_button.dart';
+import 'package:news_app/core/views/widgets/app_drawer.dart';
 import 'package:news_app/feature/home/cubit/home_cubit.dart';
 import 'package:news_app/feature/home/widget/custom_carousel_slider.dart';
 import 'package:news_app/feature/home/widget/recommended_news.dart';
@@ -10,6 +12,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
     return BlocProvider(
       create:
           (context) =>
@@ -17,7 +21,33 @@ class HomePage extends StatelessWidget {
                 ..getTopHeadlines()
                 ..getRecommendationNews(),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Home Page')),
+        key: _scaffoldKey,
+        appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AppBarButton(
+              iconData: Icons.menu,
+              onTap: () {
+                _scaffoldKey.currentState!.openDrawer();
+              },
+            ),
+          ),
+          actions: [
+            AppBarButton(
+              iconData: Icons.search,
+              hasPaddingBetween: true,
+              onTap: () {},
+            ),
+            const SizedBox(width: 8),
+            AppBarButton(
+              iconData: Icons.notifications_none_rounded,
+              hasPaddingBetween: true,
+              onTap: () {},
+            ),
+            const SizedBox(width: 12),
+          ],
+        ),
+        drawer: const AppDrawer(),
         body: SafeArea(
           child: Builder(
             builder: (context) {

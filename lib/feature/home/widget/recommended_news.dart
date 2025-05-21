@@ -29,8 +29,8 @@ class RecommendedNewsWidget extends StatelessWidget {
                 imageUrl:
                     article.urlToImage ??
                     'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
-                width: 160,
-                height: 170,
+                width: 150,
+                height: 150,
                 fit: BoxFit.cover,
               ),
             ),
