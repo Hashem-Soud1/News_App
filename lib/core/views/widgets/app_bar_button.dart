@@ -5,12 +5,14 @@ class AppBarButton extends StatelessWidget {
   final IconData iconData;
   final VoidCallback onTap;
   final bool hasPaddingBetween;
+  final bool backgroundColor;
 
   const AppBarButton({
     super.key,
     required this.iconData,
     required this.onTap,
     this.hasPaddingBetween = false,
+    this.backgroundColor = false,
   });
 
   @override
@@ -20,7 +22,7 @@ class AppBarButton extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: AppColors.grey2,
+          color: backgroundColor ? AppColors.transparentGrey : AppColors.grey2,
         ),
         child: Padding(
           padding: EdgeInsets.all(hasPaddingBetween ? 8.0 : 0.0),

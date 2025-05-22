@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:news_app/core/route/app_routes.dart';
 import 'package:news_app/core/theme/app_colors.dart';
 import 'package:news_app/feature/home/model/TopHeadlinesResponse%20.dart';
 
@@ -25,64 +26,73 @@ class _CustomCarouselSliderState extends State<CustomCarouselSlider> {
             item.publishedAt ?? DateTime.now().toString(),
           );
           final publishedDate = DateFormat.yMMMd().format(parsedDate);
-          return ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-            child: Stack(
-              children: <Widget>[
-                CachedNetworkImage(
-                  imageUrl:
-                      item.urlToImage ??
-                      'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
-                  fit: BoxFit.cover,
-                  width: 1000.0,
-                  height: 220,
-                ),
-                Positioned(
-                  bottom: 0.0,
-                  left: 0.0,
-                  right: 0.0,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromARGB(200, 0, 0, 0),
-                          Color.fromARGB(0, 0, 0, 0),
+          return InkWell(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                AppRoutes.articleDetails,
+                arguments: item,
+              );
+            },
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+              child: Stack(
+                children: <Widget>[
+                  CachedNetworkImage(
+                    imageUrl:
+                        item.urlToImage ??
+                        'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
+                    fit: BoxFit.cover,
+                    width: 1000.0,
+                    height: 220,
+                  ),
+                  Positioned(
+                    bottom: 0.0,
+                    left: 0.0,
+                    right: 0.0,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(200, 0, 0, 0),
+                            Color.fromARGB(0, 0, 0, 0),
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                        ),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 20.0,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${item.source?.name ?? ''} . $publishedDate',
+                            style: const TextStyle(
+                              color: AppColors.white,
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+
+                          Text(
+                            item.title ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
                       ),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 10.0,
-                      horizontal: 20.0,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${item.source?.name ?? ''} . $publishedDate',
-                          style: const TextStyle(
-                            color: AppColors.white,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-
-                        Text(
-                          item.title ?? '',
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }).toList();

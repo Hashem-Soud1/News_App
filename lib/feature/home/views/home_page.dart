@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
     return BlocProvider(
       create:
@@ -21,14 +21,14 @@ class HomePage extends StatelessWidget {
                 ..getTopHeadlines()
                 ..getRecommendationNews(),
       child: Scaffold(
-        key: _scaffoldKey,
+        key: scaffoldKey,
         appBar: AppBar(
           leading: Padding(
             padding: const EdgeInsets.all(8.0),
             child: AppBarButton(
               iconData: Icons.menu,
               onTap: () {
-                _scaffoldKey.currentState!.openDrawer();
+                scaffoldKey.currentState!.openDrawer();
               },
             ),
           ),
