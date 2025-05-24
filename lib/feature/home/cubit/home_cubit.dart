@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/feature/home/model/TopHeadlinesBody.dart';
-import 'package:news_app/feature/home/model/TopHeadlinesResponse%20.dart';
+import 'package:news_app/core/model/NewsApiResponse.dart';
 import 'package:news_app/feature/home/servicse/home_services.dart';
 
 part 'home_state.dart';

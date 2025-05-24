@@ -1,17 +1,17 @@
-import 'package:news_app/core/theme/app_constants.dart';
+import 'package:news_app/core/utilities/app_constants.dart';
 import 'package:news_app/feature/home/model/TopHeadlinesBody.dart';
 import 'package:dio/dio.dart';
-import 'package:news_app/feature/home/model/TopHeadlinesResponse%20.dart';
+import 'package:news_app/core/model/NewsApiResponse.dart';
 
 abstract class HomeServices {
-  Future<TopHeadlinesApiResponse> getTopHeadlines(TopHeadlinesBody body);
+  Future<NewsApiResponse> getTopHeadlines(TopHeadlinesBody body);
 }
 
 class HomeServicesImpl implements HomeServices {
   final aDio = Dio();
 
   @override
-  Future<TopHeadlinesApiResponse> getTopHeadlines(TopHeadlinesBody body) async {
+  Future<NewsApiResponse> getTopHeadlines(TopHeadlinesBody body) async {
     try {
       aDio.options.baseUrl = AppConstants.baseUrl;
       final headers = {'Authorization': 'Bearer ${AppConstants.apiKey}'};
@@ -22,7 +22,7 @@ class HomeServicesImpl implements HomeServices {
       );
 
       if (response.statusCode == 200) {
-        return TopHeadlinesApiResponse.fromMap(response.data);
+        return NewsApiResponse.fromJson(response.data);
       } else {
         throw Exception(response.statusMessage);
       }

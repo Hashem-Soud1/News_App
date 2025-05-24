@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/route/app_router.dart';
 import 'package:news_app/core/route/app_routes.dart';
 
-import 'package:news_app/core/theme/app_constants.dart';
-import 'package:news_app/core/theme/app_theme.dart';
+import 'package:news_app/core/utilities/app_constants.dart';
+import 'package:news_app/core/utilities/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());

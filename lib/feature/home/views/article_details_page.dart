@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:news_app/core/theme/app_colors.dart';
+import 'package:news_app/core/utilities/theme/app_colors.dart';
 import 'package:news_app/core/views/widgets/app_bar_button.dart';
-import 'package:news_app/feature/home/model/TopHeadlinesResponse%20.dart';
+import 'package:news_app/core/model/NewsApiResponse.dart';
 
 class ArticleDetailsPage extends StatelessWidget {
   final Article article;
@@ -25,11 +25,11 @@ class ArticleDetailsPage extends StatelessWidget {
                 article.urlToImage ??
                 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
             width: double.infinity,
-            height: size.height * 0.6,
+            height: size.height * 0.55,
             fit: BoxFit.cover,
           ),
           Container(
-            height: size.height * 0.6,
+            height: size.height * 0.7,
             width: double.infinity,
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -37,7 +37,7 @@ class ArticleDetailsPage extends StatelessWidget {
                 begin: Alignment.bottomCenter,
                 colors: [
                   AppColors.black.withOpacity(0.8),
-                  AppColors.black.withOpacity(0.1),
+                  AppColors.black.withOpacity(0.01),
                 ],
               ),
             ),
@@ -142,35 +142,37 @@ class ArticleDetailsPage extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(24.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 20,
-                                backgroundImage: CachedNetworkImageProvider(
-                                  article.urlToImage ??
-                                      'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 20,
+                                  backgroundImage: CachedNetworkImageProvider(
+                                    article.urlToImage ??
+                                        'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                article.source?.name ?? 'UNKNOWN',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .copyWith(fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 24),
-                          Text(
-                            (article.description ?? '') +
-                                (article.content ?? ''),
-                            style: Theme.of(context).textTheme.titleMedium!
-                                .copyWith(color: AppColors.black),
-                          ),
-                        ],
+                                const SizedBox(width: 8),
+                                Text(
+                                  article.source?.name ?? 'UNKNOWN',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 24),
+                            Text(
+                              (article.description ?? '') +
+                                  (article.content ?? ''),
+                              style: Theme.of(context).textTheme.titleMedium!
+                                  .copyWith(color: AppColors.black),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
