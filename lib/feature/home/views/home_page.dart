@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/core/route/app_routes.dart';
 import 'package:news_app/core/views/widgets/app_bar_button.dart';
 import 'package:news_app/core/views/widgets/app_drawer.dart';
 import 'package:news_app/feature/home/cubit/home_cubit.dart';
@@ -35,9 +34,9 @@ class HomePage extends StatelessWidget {
           ),
           actions: [
             AppBarButton(
-              iconData: Icons.search,
+              iconData: Icons.nightlight_outlined,
               hasPaddingBetween: true,
-              onTap: () => Navigator.pushNamed(context, AppRoutes.search),
+              onTap: () {},
             ),
             const SizedBox(width: 8),
             AppBarButton(

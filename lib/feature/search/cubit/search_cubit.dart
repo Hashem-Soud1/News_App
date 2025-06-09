@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/model/NewsApiResponse.dart';
 import 'package:news_app/core/utilities/app_constants.dart';
 import 'package:news_app/feature/search/model/search_body.dart';
-import 'package:news_app/feature/search/services/search_services.dart';
 import 'package:news_app/feature/search/services/search_services_retrofit.dart';
 
 part 'search_state.dart';

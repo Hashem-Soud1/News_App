@@ -8,8 +8,10 @@ abstract class HomeServices {
 }
 
 class HomeServicesImpl implements HomeServices {
-  final aDio = Dio();
+  final Dio aDio;
 
+  // Constructor injection for Dio instance
+  HomeServicesImpl({Dio? dio}) : aDio = dio ?? Dio();
   @override
   Future<NewsApiResponse> getTopHeadlines(TopHeadlinesBody body) async {
     try {
