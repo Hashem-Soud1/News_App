@@ -78,7 +78,7 @@ class _SearchPageState extends State<SearchPage> {
                           (context, index) => const SizedBox(height: 10),
                       itemBuilder: (_, index) {
                         final article = articles[index];
-                        return ArticelWidgetItem(
+                        return ArticleWidgetItem(
                           article: article,
                           isSmaller: true,
                         );

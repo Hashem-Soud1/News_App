@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/views/widgets/app_bar_button.dart';
 import 'package:news_app/core/views/widgets/app_drawer.dart';
 import 'package:news_app/feature/home/cubit/home_cubit.dart';
-import 'package:news_app/feature/home/widget/custom_carousel_slider.dart';
-import 'package:news_app/feature/home/widget/recommended_news.dart';
-import 'package:news_app/feature/home/widget/title_headline_widget.dart';
+import 'package:news_app/feature/home/views/widget/custom_carousel_slider.dart';
+import 'package:news_app/feature/home/views/widget/recommended_news.dart';
+import 'package:news_app/feature/home/views/widget/title_headline_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

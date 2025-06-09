@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/core/model/NewsApiResponse.dart';
+import 'package:news_app/core/model/article_model.dart';
 import 'package:news_app/core/views/widgets/articel_widget_item.dart';
 
 class RecommendedNewsWidget extends StatelessWidget {
@@ -17,7 +17,7 @@ class RecommendedNewsWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         final article = articles[index];
 
-        return ArticelWidgetItem(article: article);
+        return ArticleWidgetItem(article: article, isSmaller: true);
       },
     );
   }

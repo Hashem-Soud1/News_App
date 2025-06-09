@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:news_app/core/cubit/bookmark_actions_cubit.dart';
+import 'package:news_app/core/model/article_model.dart';
 import 'package:news_app/core/utilities/theme/app_colors.dart';
 import 'package:news_app/core/views/widgets/app_bar_button.dart';
-import 'package:news_app/core/model/NewsApiResponse.dart';
 
 class ArticleDetailsPage extends StatelessWidget {
   final Article article;
@@ -16,6 +18,8 @@ class ArticleDetailsPage extends StatelessWidget {
       article.publishedAt ?? DateTime.now().toString(),
     );
     final formattedDate = DateFormat.yMMMd().format(parsedDate);
+
+    final bookmarkActionsCubit = BlocProvider.of<BookmarkActionsCubit>(context);
 
     return Scaffold(
       body: Stack(
@@ -60,12 +64,50 @@ class ArticleDetailsPage extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      AppBarButton(
-                        backgroundColor: true,
-                        iconData: Icons.bookmark_border,
-                        hasPaddingBetween: true,
-                        onTap: () {},
+                      BlocBuilder<BookmarkActionsCubit, BookmarkActionsState>(
+                        bloc: bookmarkActionsCubit,
+                        buildWhen:
+                            (previous, current) =>
+                                (current is DoingBookmark &&
+                                    current.title == article.title) ||
+                                (current is BookmarkAdded &&
+                                    current.title == article.title) ||
+                                (current is BookmarkRemoved &&
+                                    current.title == article.title) ||
+                                (current is DoingBookmarkError &&
+                                    current.title == article.title),
+                        builder: (context, state) {
+                          if (state is DoingBookmark) {
+                            return const Padding(
+                              padding: EdgeInsets.all(12),
+                              child: SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator.adaptive(
+                                  strokeWidth: 2,
+                                ),
+                              ),
+                            );
+                          }
+
+                          IconData icon = Icons.bookmark_border;
+                          if (BookmarkActionsCubit().bookmarkedTitles.contains(
+                            article.title,
+                          )) {
+                            icon = Icons.bookmark;
+                          }
+
+                          return AppBarButton(
+                            backgroundColor: true,
+                            iconData: icon,
+                            hasPaddingBetween: true,
+                            onTap:
+                                () async => await bookmarkActionsCubit
+                                    .setBookmark(article),
+                          );
+                        },
                       ),
+
                       const SizedBox(width: 8),
                       AppBarButton(
                         backgroundColor: true,
@@ -155,12 +197,16 @@ class ArticleDetailsPage extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(width: 8),
-                                Text(
-                                  article.source?.name ?? 'UNKNOWN',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall!
-                                      .copyWith(fontWeight: FontWeight.w500),
+                                Expanded(
+                                  child: Text(
+                                    article.source?.name ?? 'UNKNOWN',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .copyWith(fontWeight: FontWeight.w500),
+                                  ),
                                 ),
                               ],
                             ),

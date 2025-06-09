@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/feature/bockmark/cubit/bookmark_cubit.dart';
 import 'package:news_app/feature/bockmark/views/pages/bockmark_page.dart';
-import 'package:news_app/feature/home/views/home_page.dart';
+import 'package:news_app/feature/home/views/pages/home_page.dart';
 import 'package:news_app/feature/profile/views/pages/profile_page.dart';
 import 'package:news_app/feature/search/cubit/search_cubit.dart';
 import 'package:news_app/feature/search/views/pages/search_page.dart';
@@ -35,7 +36,10 @@ class _CustomBottomNavbarState extends State<CustomBottomNavbar> {
         ),
 
         PersistentTabConfig(
-          screen: BockmarkPage(),
+          screen: BlocProvider(
+            create: (context) => BookmarkCubit()..getFavoriteItems(),
+            child: BookmarkPage(),
+          ),
           item: ItemConfig(
             icon: Icon(Icons.bookmark_outline),
             title: "Bookmark",
